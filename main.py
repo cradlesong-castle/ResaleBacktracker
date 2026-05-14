@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import calendar
 import streamlit as st
+import time
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from datetime import date
@@ -38,6 +39,7 @@ def download_resale_hdb_dataset():
         response = response.content.decode("utf-8")
         temp_df = pd.read_csv(StringIO(response))
         temp_dfs.append(temp_df)
+        time.sleep(5) 
     return_df = pd.concat(temp_dfs, ignore_index=True)
     return_df["flat_type"] = return_df["flat_type"].str.replace(
         "MULTI GENERATION", "MULTI-GENERATION", case=False, regex=True
